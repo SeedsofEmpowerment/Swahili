@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Swahili</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_result">ResultActivity</string>
+    <string name="title_activity_game">GameActivity</string>
+    
+    <string name="desc">image description</string>
+    
+    <!--  Menu -->
+    <string name="menu">Menu</string>
+    <string name="level_default">Level:1</string>
+    <string name="score_default">Score: 0</string>
+    
+    <string name="reset">Reset</string>
+    <string name="resume">Resume</string>
+    <string name="submit">Submit</string>
+    <string name="admin">Teacher</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    
+    <string name="split_char">S:W:A</string>
+    
+
+</resources>

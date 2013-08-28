@@ -1,0 +1,154 @@
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gameLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".GameActivity" >
+     
+    <!-- 게임시작 -->
+    <LinearLayout
+	    android:id="@+id/llMenuBox"
+	    android:orientation="vertical"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content">
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/Menu"
+        android:layout_height="120dp"
+        android:layout_width="0dp" 
+        android:gravity="center" 
+        android:orientation="vertical"
+        android:background="@drawable/menu"
+        android:visibility="invisible">
+        <TextView
+            android:id="@+id/menuText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:textColor="#ffffff"
+            android:textSize="12sp" 
+            android:textStyle="bold"
+            android:singleLine="true" 
+            android:text="@string/menu"/>
+	</LinearLayout>
+	
+    <LinearLayout
+		android:id="@+id/LevelTextBox"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:visibility="invisible">
+	    <TextView
+	        android:id="@+id/LevelText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:textColor="#323232"
+	        android:textSize="12sp" 
+	        android:textStyle="bold"
+	        android:singleLine="true" 
+	        android:text="@string/level_default"/>
+	</LinearLayout>	
+	   
+    <LinearLayout
+		android:id="@+id/ScoreTextBox"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:visibility="invisible">
+	    <TextView
+	        android:id="@+id/ScoreText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:textColor="#323232"
+	        android:textSize="12sp" 
+	        android:textStyle="bold"
+	        android:singleLine="true" 
+	        android:text="@string/score_default"/>
+	</LinearLayout>		
+	
+    <LinearLayout
+        android:id="@+id/ListeningKid"
+        android:layout_height="150dp"
+        android:layout_width="0dp" 
+        android:gravity="center" 
+        android:orientation="vertical"
+        android:background="@drawable/listeningkid"
+        android:visibility="invisible">
+	</LinearLayout>
+    
+	<LinearLayout
+        android:id="@+id/ClickToListen"
+        android:layout_height="120dp"
+        android:layout_width="0dp" 
+        android:gravity="center" 
+        android:orientation="vertical"
+        android:background="@drawable/clicktolisten"
+        android:visibility="invisible">
+	</LinearLayout>
+	
+	<LinearLayout
+        android:id="@+id/IconCorrect"
+        android:layout_height="120dp"
+        android:layout_width="0dp" 
+        android:gravity="center" 
+        android:orientation="vertical"
+        android:background="@drawable/icon_correct"
+        android:visibility="invisible">
+	</LinearLayout>
+	
+	<LinearLayout
+        android:id="@+id/IconIncorrect"
+        android:layout_height="120dp"
+        android:layout_width="0dp" 
+        android:gravity="center" 
+        android:orientation="vertical"
+        android:background="@drawable/icon_incorrect"
+        android:visibility="invisible">
+	</LinearLayout>
+	
+	<!-- Phonics 아이콘 -->
+    <LinearLayout
+         style="@style/IconPhonicSmall"
+         android:id="@+id/mimgPhonicSmall01"
+         android:background="@drawable/icon_small_red">
+         <TextView
+             style="@style/IconPhonicSmallText"
+             android:id="@+id/mimgPhonicSmalltext01"/>
+    </LinearLayout>
+
+    <LinearLayout
+   		style="@style/IconPhonicSmall" 
+        android:id="@+id/mimgPhonicSmall02"
+        android:background="@drawable/icon_small_red">
+            <TextView
+                style="@style/IconPhonicSmallText" 
+                android:id="@+id/mimgPhonicSmalltext02"/>
+    </LinearLayout>
+    
+    <LinearLayout
+   		style="@style/IconPhonicSmall" 
+        android:id="@+id/mimgPhonicSmall03"
+        android:background="@drawable/icon_small_red">
+            <TextView
+                style="@style/IconPhonicSmallText" 
+                android:id="@+id/mimgPhonicSmalltext03"/>
+    </LinearLayout>
+    
+    <LinearLayout
+   		style="@style/IconPhonicSmall" 
+        android:id="@+id/mimgPhonicSmall04"
+        android:background="@drawable/icon_small_red">
+            <TextView
+                style="@style/IconPhonicSmallText" 
+                android:id="@+id/mimgPhonicSmalltext04"/>
+    </LinearLayout>
+    
+    <LinearLayout
+   		style="@style/IconPhonicSmall" 
+        android:id="@+id/mimgPhonicSmall05"
+        android:background="@drawable/icon_small_red">
+            <TextView
+                style="@style/IconPhonicSmallText" 
+                android:id="@+id/mimgPhonicSmalltext05"/>
+    </LinearLayout>
+
+</RelativeLayout>

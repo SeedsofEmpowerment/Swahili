@@ -1,0 +1,177 @@
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menuLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MenuActivity" >
+    
+     <LinearLayout
+        android:id="@+id/menuLoggedNameLayout"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" 
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:contentDescription="@string/desc">
+    	<ImageView
+	        android:id="@+id/menuLoggedNameIcon"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:src="@drawable/menu_icon_name" 
+	        android:contentDescription="@string/desc"/>
+    	<TextView
+	        android:id="@+id/userNameText"
+	        style="@style/Menu_Button_Text"
+	        android:layout_width="wrap_content"
+		    android:layout_height="fill_parent"
+	        android:background="@drawable/menu_username"/>
+    </LinearLayout>
+     
+    <LinearLayout
+        android:id="@+id/menuKeepPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="130dp"
+        android:background="@drawable/menu_play"
+        android:contentDescription="@string/desc"
+        android:orientation="vertical" >
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/menuUserChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:background="@drawable/menu_user_change"
+        android:contentDescription="@string/desc">
+	</LinearLayout>
+    
+
+    <LinearLayout
+        android:id="@+id/menuLoginTextLayout"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" 
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:contentDescription="@string/desc">
+	    <LinearLayout
+	        android:id="@+id/menuUserNameField"
+	        android:layout_width="fill_parent"
+		    android:layout_height="0dp"
+		    android:layout_weight="0.5" 
+	        android:orientation="horizontal"
+	        android:contentDescription="@string/desc">
+	      	<ImageView
+		        android:id="@+id/menuUserNameIcon"
+		        android:layout_width="wrap_content"
+		        android:layout_height="fill_parent"
+		        android:src="@drawable/menu_icon_name" 
+		        android:contentDescription="@string/desc"/>
+	      	<EditText
+		        android:id="@+id/userName"
+		        android:layout_width="wrap_content"
+		        android:layout_height="fill_parent"
+		        android:ems="10"
+		        android:inputType="text">
+	      		<requestFocus />
+	    	</EditText>
+		</LinearLayout>
+		    
+	    <LinearLayout
+	        android:id="@+id/menuPasswordField"
+	        android:layout_width="fill_parent"
+		    android:layout_height="0dp"
+		    android:layout_weight="0.5" 
+	        android:orientation="horizontal"
+	        android:contentDescription="@string/desc">
+	      	<ImageView
+		        android:id="@+id/menuPasswordIcon"
+		        android:layout_width="wrap_content"
+		        android:layout_height="fill_parent"
+		        android:src="@drawable/menu_icon_password" 
+		        android:contentDescription="@string/desc"/>
+	      	<EditText
+		        android:id="@+id/userPass"
+		        android:layout_width="wrap_content"
+		        android:layout_height="fill_parent"
+		        android:ems="10"
+		        android:inputType="text">
+	    	</EditText>
+		</LinearLayout>
+    </LinearLayout>  
+    
+    <LinearLayout
+        android:id="@+id/menuPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/menu_play"
+        android:contentDescription="@string/desc"
+        android:orientation="vertical" >
+    </LinearLayout>
+    
+    <!-- Admin Menu -->    
+    <LinearLayout
+        android:id="@+id/menuAdminLoginLayout"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" 
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="380dp"
+        android:orientation="horizontal"
+        android:contentDescription="@string/desc">
+	    <EditText
+	        android:id="@+id/adminPass"
+	        android:layout_width="0dp"
+			android:layout_height="fill_parent"
+			android:layout_weight="0.7"
+	        android:ems="10"
+	        android:inputType="text"
+	        android:visibility="visible" >
+	    </EditText>
+	    <TextView
+	        android:id="@+id/adminSubmitText"
+	        style="@style/Menu_Button_Text"
+	        android:layout_width="0dp"
+			android:layout_height="fill_parent"
+			android:layout_weight="0.3"
+	        android:background="@drawable/menu"
+	        android:text="@string/admin"
+	        android:visibility="visible" />
+   	</LinearLayout>
+   	
+    <!-- Wrong Sign! -->
+
+    <LinearLayout
+        android:id="@+id/menuWrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="300dp"
+        android:background="@drawable/menu_wrong"
+        android:contentDescription="@string/desc"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+
+    </LinearLayout>
+   
+</RelativeLayout>
