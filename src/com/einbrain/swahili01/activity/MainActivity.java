@@ -2,6 +2,7 @@ package com.einbrain.swahili01.activity;
 
 import com.einbrain.swahili01.DisplayManager;
 import com.einbrain.swahili01.R;
+import com.einbrain.swahili01.ResultHandle;
 import com.einbrain.swahili01.SizePositionManager;
 import android.app.Activity;
 import android.content.Intent;
@@ -16,11 +17,12 @@ public class MainActivity extends Activity {
 	
 	//// Private Properties ////
 	private RelativeLayout CurrentLayout;
-	//private String _FileLogin_ = "login.txt";
+	private String _FileUsers_ = "users_v1_1.txt", _FileCurrent_ = "current_v1_1.txt";
+	
 	private DisplayManager IDisplay;
 	private ScaleView IScale;
 	private SizePositionManager ISize = new SizePositionManager();
-	//private ResultHandle IResult = new ResultHandle();
+	private ResultHandle IResult = new ResultHandle();
 	
 	//// Public Properties ////
 	int _ScreenWidth_;
@@ -36,7 +38,6 @@ public class MainActivity extends Activity {
 		
 		MainActivityObject = this; //MenuActivity 에서 사용해야 하니까 지우지 말 것.
 		
-		// Getting device display size & Setting display size
 		IDisplay = new DisplayManager(getApplicationContext()); 
 		_ScreenWidth_ = IDisplay.getDisplayPixel()[0]; 
 		_ScreenHeight_ = IDisplay.getDisplayPixel()[1];
@@ -49,7 +50,7 @@ public class MainActivity extends Activity {
 		IScale.MainActivity(); 
 		
 		LinearLayout playButton = (LinearLayout) findViewById (R.id.btnPlay);
-	    ISize.setLinearLayout (playButton, IScale.mainPlayX, IScale.mainPlayY, IScale.mainPlayWidth, IScale.mainPlayHeight);
+		ISize.setLinearLayout (playButton, IScale.mainPlayX, IScale.mainPlayY, IScale.mainPlayWidth, IScale.mainPlayHeight);
 		
 		_SndBackground_ = MediaPlayer.create(this, R.raw.background);
 		_SndBackground_.start();
@@ -58,26 +59,23 @@ public class MainActivity extends Activity {
 		    public void onClick(View v) {
 		    	_SndBackground_.stop();
 		    	
-		    	// Read a login file to check logged-in
-		    	/*
-			    String loadedData = null;
-				loadedData = IResult.getData(_FileLogin_); //최근상태 저장해 놓은 파일을 불러오고 
-
-				if (loadedData != null) { // Already logged-in 
+		    	// Read a login file to check logged-in 
+			    String loadedUsers = null;
+				String loadedData = null;
+			    
+			    loadedUsers = IResult.getData(_FileUsers_); //최근상태 저장해 놓은 파일을 불러오고
+			    loadedData = IResult.getData(_FileCurrent_); //최근상태 저장해 놓은 파일을 불러오고 
+				
+				if (loadedData != null && loadedUsers != null) { // Already logged-in 
 					// Go to the Game Activity
 					Intent intent = new Intent(MainActivity.this, GameActivity.class);
 			        startActivity(intent);
+					
 				} else {// Not logged-in 
 					// Go to the Menu Activity
 					Intent intent = new Intent(MainActivity.this, MenuActivity.class);
 			        startActivity(intent);
 				}
-				*/
-		    	
-		    	// Go to the Menu Activity
-				Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-		        startActivity(intent);
-		        
 		    }  
 		}); // /playButton.setOnClickListener
 	} // /onCreate

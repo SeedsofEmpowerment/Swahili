@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class GameActivity extends Activity {
 	int _LevelScoreRate_ = 3;
 	int _CorrectScoreRate_ = 2;
 	
-	String _FileResult_ = "result.txt", _FileCurrent_ = "current.txt";
+	String _FileResult_ = "result_v1_1.txt", _FileCurrent_ = "current_v1_1.txt";
 	
 	int _ScreenWidth_, _ScreenHeight_;
 	int _1SetPhonicNumber_ = 5;
@@ -121,19 +122,23 @@ public class GameActivity extends Activity {
 	
 
 	//게임시작
-	private void initGame() {
-		LiLevelCriteria.add(5); //레벨업 기준 초기화 
+	private boolean initGame() {
+		LiLevelCriteria.add(5); //레벨업 기준 초기화: 5개 연속으로 맞춰야..
+		LiLevelCriteria.add(3); //레벨다운 기준 초기화: 3개 연속으로 틀리면..
 		
 		initImages(); //이미지 초기화
 		
 		LinearLayout menubox = (LinearLayout) findViewById (R.id.llMenuBox);
 		LayoutParams menuParam = (LayoutParams) menubox.getLayoutParams();
+		
 		//위치 조정 
 		((MarginLayoutParams) menuParam).setMargins(IScale.gameMenuboxX, IScale.gameMenuboxY, 0, 0);
 		menubox.setLayoutParams(menuParam);
+		
 		//크기 조정
 		menuParam.width = IScale.gameMenuboxWidth;
 		menuParam.height = IScale.gameMenuboxHeight;
+		
 		//컬러 조정
 	    menubox.setBackgroundColor(Color.argb(255, 255, 255, 153));
 	    
@@ -143,7 +148,7 @@ public class GameActivity extends Activity {
 	    
 	    TextView menuText = (TextView) findViewById(R.id.menuText);
 	    menuText.setTextSize (TypedValue.COMPLEX_UNIT_PX, IScale.gameMenuTextSize);
-	    
+	    	    
 	    menu.setOnClickListener(new View.OnClickListener() {	
 			public void onClick(View v) {
 				Intent intent = new Intent(GameActivity.this, MenuActivity.class);
@@ -176,22 +181,30 @@ public class GameActivity extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+			
+			//메뉴에서 레벨 건너 뛰기를 한 녀석들
+			Bundle extras = getIntent().getExtras(); // 전달된 변수 찾아보자 
+			if (extras != null) { // 전달된 변수 있으면 
+				currentLevel = extras.getInt("gotoLevel"); // 해당 레벨로 집어 넣자  
+			}
+			
 		} else { // No current file. Serious error 
 			System.out.println("No current file found");
 			finish();
 		}
 		
 		IResult.scoreInit (currentScore, currentStraightc, totalStraightc);// 점수 초기화
-
+		
+		//현재 레벨 표시 
 		LinearLayout levelTextBox = (LinearLayout) findViewById(R.id.LevelTextBox);
 		levelTextBox.setVisibility(LinearLayout.VISIBLE); //일단 보이게 하고 
-		
 		LayoutParams paramLevelText = (LayoutParams) levelTextBox.getLayoutParams();
 		((MarginLayoutParams) paramLevelText).setMargins(IScale.gameLevelTextX, IScale.gameLevelTextY, 10, 10);
 		levelTextBox.setLayoutParams(paramLevelText);
 		paramLevelText.width = IScale.gameLevelTextWidth;
 		paramLevelText.height = IScale.gameLevelTextHeight;
 		
+		//현재 스코어 표시 
 		LinearLayout scoreTextBox = (LinearLayout) findViewById(R.id.ScoreTextBox);
 		scoreTextBox.setVisibility(LinearLayout.VISIBLE); //일단 보이게 하고 
 		LayoutParams paramScoreText = (LayoutParams) scoreTextBox.getLayoutParams();
@@ -199,6 +212,17 @@ public class GameActivity extends Activity {
 		scoreTextBox.setLayoutParams(paramScoreText);
 		paramScoreText.width = IScale.gameScoreTextWidth;
 		paramScoreText.height = IScale.gameScoreTextHeight;
+		
+		//현재 상태 표시 
+		LinearLayout currentStatusTextBox = (LinearLayout) findViewById(R.id.CurrentStatusTextBox);
+		currentStatusTextBox.setVisibility(LinearLayout.VISIBLE); //일단 보이게 하고
+		
+		LayoutParams paramStatusText = (LayoutParams) currentStatusTextBox.getLayoutParams();
+		((MarginLayoutParams) paramStatusText).setMargins(IScale.gameStatusTextX, IScale.gameStatusTextY, 10, 10);
+		currentStatusTextBox.setLayoutParams(paramStatusText);
+		paramStatusText.width = IScale.gameStatusTextWidth;
+		paramStatusText.height = IScale.gameStatusTextHeight;
+		
 		
 		TextView levelText = (TextView) findViewById(R.id.LevelText);
 		levelText.setText ("Level: " + currentLevel);
@@ -208,7 +232,37 @@ public class GameActivity extends Activity {
 		scoreText.setText ("Score: " + currentScore);
 		scoreText.setTextSize (TypedValue.COMPLEX_UNIT_PX, IScale.gameMenuTextSize);
 		
+		TextView statusText = (TextView) findViewById(R.id.StatusText);
+		int straightCorrect = IResult.mStraightCorrectLog;
+		String straightCorrectText = "☆☆☆☆☆";
+		
+		switch(straightCorrect) {
+		    case 0:
+		        break;
+		    case 1:
+		    	straightCorrectText = "★☆☆☆☆";
+		        break;
+		    case 2:
+		    	straightCorrectText = "★★☆☆☆";
+		        break;
+		    case 3:
+		    	straightCorrectText = "★★★☆☆";
+		        break;
+		    case 4:
+		    	straightCorrectText = "★★★★☆";
+		        break;
+		    case 5:
+		    	straightCorrectText = "★★★★★";
+		        break;
+		    default:
+	    	break;
+		}
+		statusText.setText (straightCorrectText);
+		statusText.setTextSize (TypedValue.COMPLEX_UNIT_PX, IScale.gameMenuTextSize);
+		
+		
 		initButtons(1, currentLevel);
+		return false;
 	} // /initGame()
 	
 	
@@ -223,7 +277,34 @@ public class GameActivity extends Activity {
 		levelText.setText ("Level: " + currentLevel);
 		TextView scoreText = (TextView) findViewById(R.id.ScoreText);
 		scoreText.setText ("Score: " + IResult.mScore);
-			
+		
+		TextView statusText = (TextView) findViewById(R.id.StatusText);
+		int straightCorrect = IResult.mStraightCorrectLog;
+		String straightCorrectText = "☆☆☆☆☆";
+		
+		switch(straightCorrect) {
+		    case 0:
+		        break;
+		    case 1:
+		    	straightCorrectText = "★☆☆☆☆";
+		        break;
+		    case 2:
+		    	straightCorrectText = "★★☆☆☆";
+		        break;
+		    case 3:
+		    	straightCorrectText = "★★★☆☆";
+		        break;
+		    case 4:
+		    	straightCorrectText = "★★★★☆";
+		        break;
+		    case 5:
+		    	straightCorrectText = "★★★★★";
+		        break;
+		    default:
+	    	break;
+		}
+		statusText.setText (straightCorrectText);
+					
 		//pick 5 numbers from the start level to current level without repetition and ordering
 		Random r = new Random(); // Ideally just create one instance globally
 		List<Integer> li1setRandom = new ArrayList<Integer>(); //current question options
@@ -277,13 +358,14 @@ public class GameActivity extends Activity {
 		else if (chosenQ == "ng'o") sndStr = "ng_o";
 		else if (chosenQ == "ng'u") sndStr = "ng_u";
 	    
-	    for (int i=1; i<21; i++){
-	    	if ( chosenQ == Integer.toString(i) ) sndStr = "n" + Integer.toString(i);
+	    for (int i=1; i<21; i++){ //숫자 사운드 파일이 n1, n2 식으로 되어 있다. 
+	    	String t = String.valueOf(i);
+	    	if ( chosenQ.equals(t) ) sndStr = "n" + t;
 	    }
 	    
 	    Uri myUri = Uri.parse("android.resource://" + getPackageName() + "/raw/" + sndStr);
 	    _SndPhonic_ = MediaPlayer.create(this, myUri);
-	    
+
 	    System.out.println("_SndPhonic_: " + _SndPhonic_);
 	    
 	    iClickToListen.mLayout.setOnTouchListener (new CClickListener( )); //이벤트 리스너 
@@ -303,8 +385,16 @@ public class GameActivity extends Activity {
 		arrTextView[2] = (TextView) findViewById(R.id.mimgPhonicSmalltext03);
 		arrTextView[3] = (TextView) findViewById(R.id.mimgPhonicSmalltext04);
 		arrTextView[4] = (TextView) findViewById(R.id.mimgPhonicSmalltext05);
+		
+		//phonics 아이콘 폰트 바꾸기 
+		Typeface font = Typeface.createFromAsset(getAssets(), "a.ttf");  
+		arrTextView[0].setTypeface(font);
+		arrTextView[1].setTypeface(font);
+		arrTextView[2].setTypeface(font);
+		arrTextView[3].setTypeface(font);
+		arrTextView[4].setTypeface(font);
 			
-	    //드래그 가능한 아이콘으로 만들기 
+	    //텍스트네모에 phonics 집어넣고 드래그 가능한 아이콘으로 만들기 
 	    for (int i=0; i<arrImgPhonicSmallRed.length; i++){
 	    	ArrIconSmall[i] = new DragableButton(arrImgPhonicSmallRed[i], arrTextView[i], _PhonicList_[li1setRandom.get(i)], _ScreenWidth_, _ScreenHeight_, currentLevel, chosenQ, li1setRandom );
 	    	ArrIconSmall[i].visible (IScale.gameArrIconSmallX[i], IScale.gameIconSmallY, IScale.gameIconSmallWidth, IScale.gameIconSmallHeight, IScale.gameIconSmallTextSize);
@@ -315,7 +405,9 @@ public class GameActivity extends Activity {
 	    IconCorrect = new DragableButton(iconCorrect, null, null, _ScreenWidth_, _ScreenHeight_, 0, null, null);
 	    LinearLayout iconIncorrect = (LinearLayout) findViewById(R.id.IconIncorrect);
 	    IconIncorrect = new DragableButton(iconIncorrect, null, null, _ScreenWidth_, _ScreenHeight_, 0, null, null);
+	    
 	}// /initButtons
+	
 	
 	private class CClickListener implements OnTouchListener {
 				
@@ -340,9 +432,9 @@ public class GameActivity extends Activity {
 		}
 	}// /CClickListener
 	
+	
 	//이미지 초기화 
 	private void initImages() {
-		//RelativeLayout layout = (RelativeLayout) findViewById(R.id.gameLayout);
 		IDisplay.insertBackgroundView(CurrentLayout); 
 		IDisplay.changeBackground();
 	}// /initImages
@@ -354,7 +446,6 @@ public class GameActivity extends Activity {
 		DragableButton self;
 		public CMoveListener(int i) {
 			self = ArrIconSmall[i];
-			
 		}
 		
 		// Event handler 
@@ -391,14 +482,15 @@ public class GameActivity extends Activity {
 		
 		IResult.scoreManage (result, correctPhonic, _CorrectString_, _IncorrectString_); //점수 기록을 위해 결과와 맞은 phonic 을 (중복으로 맞은 것은 연속 점수에 넣지 않는다) 넣자 
 		int straightCorrect = IResult.mStraightCorrectLog;
+		int straightIncorrect = IResult.mStraightIncorrectLog;
 		int totalStraightCorrect = IResult.mTotalStraightCorrectLog;
 
 		//점수 기준
 		int score = IResult.mScore;
-		score = score + (currentLevel-1)*_LevelScoreRate_ + totalStraightCorrect*_CorrectScoreRate_; //레벨 1은 가중치 없다~ 
-		System.out.println("total:" + totalStraightCorrect + "/score:"+score);
+		//score = score + (currentLevel-1)*_LevelScoreRate_ + totalStraightCorrect*_CorrectScoreRate_; //레벨 1은 가중치 없다~ 
+		//System.out.println("total:" + totalStraightCorrect + "/score:"+score);
 		
-		IResult.mScore = score; //점수 수정
+		//IResult.mScore = score; //점수 수정
 		
 		Date date = new Date();
 		SimpleDateFormat sformat = new SimpleDateFormat("yyyyMMdd_HHmmss");
@@ -418,6 +510,7 @@ public class GameActivity extends Activity {
 			currentBasicInfo.put("options", options);
 			
 			currentBasicInfo.put("straightc", straightCorrect);
+			currentBasicInfo.put("straightinc", straightIncorrect);
 			currentBasicInfo.put("tstraightc", totalStraightCorrect);
 			currentBasicInfo.put("score", score);
 			
@@ -442,15 +535,28 @@ public class GameActivity extends Activity {
 				_SndCorrect_.release();
 				_SndCorrect_ = null;
 			}
-			_SndCorrect_ = MediaPlayer.create(this, R.raw.correct); //틀렸을때 나는 소리 
+			_SndCorrect_ = MediaPlayer.create(this, R.raw.correct); //맞았을 때 나는 소리 
 			
 			System.out.println("_SndCorrect_: " + _SndCorrect_);
 			_SndCorrect_.start();
+			System.out.println("straightCorrect: " + straightCorrect);
+			System.out.println("straightIncorrect: " + straightIncorrect);
 			
-			final boolean statusCheck = IResult.statusCheck (LiLevelCriteria, currentLevel, straightCorrect);
+			//Scoring
+			//int score = IResult.mScore;
+			score = score + (currentLevel-1)*_LevelScoreRate_ + totalStraightCorrect*_CorrectScoreRate_; //레벨 1은 가중치 없다~ 
+			System.out.println("total:" + totalStraightCorrect + "/score:"+score);
+			
+			IResult.mScore = score; //점수 수정
+			
+			
+			//레벌업/다운 할 것인지 체크 
+			final String statusCheck = IResult.statusCheck (LiLevelCriteria, currentLevel, straightCorrect, straightIncorrect);
+			
+			System.out.println("statusCheck: " + statusCheck);
 			//System.out.println(straightCorrect);
 			
-			//Correct Icon
+			//Correct Icon 애니메이션 (나왔다가 그냥 사라지는 것)
 			IconCorrect.visible (IScale.gameIconCorrectX, IScale.gameIconCorrectY, IScale.gameIconCorrectWidth, IScale.gameIconCorrectHeight, 0);
 			alpha.reset();
 		    IconCorrect.mLayout.clearAnimation();
@@ -466,8 +572,8 @@ public class GameActivity extends Activity {
 		        }
 		    });
 			
-			//Animation when correct
-		    Animation ani = AnimationUtils.loadAnimation(this, R.anim.tween01);
+			//맞았을 때 음운 아이콘 애니메이션 
+		    Animation ani = AnimationUtils.loadAnimation(this, R.anim.tween02);
 		    ani.reset();
 		    self.mTextview.clearAnimation();
 		    self.mTextview.startAnimation(ani);
@@ -478,15 +584,20 @@ public class GameActivity extends Activity {
 		        public void onAnimationRepeat(Animation animation) {}
 		        @Override
 		        public void onAnimationEnd(Animation animation) {
-		        	if ( statusCheck ) {
+		        	if ( statusCheck=="up" ) {
 						IResult.mStraightCorrectLog = 0;
-						nextLevel(currentLevel + 1); //Level Up!
+						IResult.mStraightIncorrectLog = 0;
+						nextLevel(currentLevel + 1); //잘했어 레벨업! 
 					} else {
+						IResult.mStraightIncorrectLog = 0;
 						nextLevel(currentLevel); //Need more straight
 					}
 		        }
 		    });
+		    
 		} else if( result == _IncorrectString_ ){ //오답
+			final String statusCheck = IResult.statusCheck (LiLevelCriteria, currentLevel, straightCorrect, straightIncorrect);
+			
 			if ( _SndIncorrect_!=null ) {
 				_SndIncorrect_.stop();
 				_SndIncorrect_.release();
@@ -496,6 +607,10 @@ public class GameActivity extends Activity {
 			System.out.println("_SndIncorrect_: " + _SndIncorrect_);
 			_SndIncorrect_.start();
 			
+			System.out.println("straightCorrect: " + straightCorrect);
+			System.out.println("straightIncorrect: " + straightIncorrect);
+			System.out.println("statusCheck: " + statusCheck);
+						
 			IconIncorrect.visible (IScale.gameIconCorrectX, IScale.gameIconCorrectY, IScale.gameIconCorrectWidth, IScale.gameIconCorrectHeight, 0);
 		    alpha.reset();
 		    IconIncorrect.mLayout.clearAnimation();
@@ -522,18 +637,35 @@ public class GameActivity extends Activity {
 		        public void onAnimationRepeat(Animation animation) {}
 		        @Override
 		        public void onAnimationEnd(Animation animation) {
-		        	self.reposition(); //제자리로
+		        	//self.reposition(); //제자리로
+		        	if (statusCheck=="down"){
+						IResult.mStraightCorrectLog = 0;
+						IResult.mStraightIncorrectLog = 0;
+						if(currentLevel == 1) nextLevel(currentLevel); //현재 레벨이 1이면 뒤로 갈 것도 없다..
+						else nextLevel(currentLevel - 1); //강등! 레벨다운!
+					} else {
+						IResult.mStraightCorrectLog = 0;
+						nextLevel(currentLevel); //Need more straight
+					}
 		        }
 		    }); 
 		} else {
 			//do nothing
 		}
 	}
-
 	
 	private void nextLevel(int i) {
-		IDisplay.changeBackground();
-		initButtons(1, i);
+		if(i>0 && i<31) {
+			IDisplay.changeBackground();
+			initButtons(1, i);	
+		} else if (i==31) { //마지막 레벨... 
+			//Go to the Game Activity
+			Intent intent = new Intent(GameActivity.this, EndActivity.class);
+	        startActivity(intent);
+	        finish();
+		} else { //Error
+			
+		}
 	}
 	
 	

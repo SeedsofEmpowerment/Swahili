@@ -28,7 +28,7 @@ public class MenuActivity extends Activity {
 	
 	private int _ScreenWidth_, _ScreenHeight_;
 	
-	private String _FileUsers_ = "users.txt", _FileCurrent_ = "current.txt", _FileResult_ = "result.txt";
+	private String _FileUsers_ = "users_v1_1.txt", _FileCurrent_ = "current_v1_1.txt", _FileResult_ = "result_v1_1.txt";
 	
 	private DisplayManager IDisplay; 
 	private ScaleView IScale;
@@ -78,19 +78,37 @@ public class MenuActivity extends Activity {
 		// User change button
 		LinearLayout menuUserChange = (LinearLayout) findViewById(R.id.menuUserChange);
 		ISize.setLinearLayout (menuUserChange, IScale.menuUserChangeX, IScale.menuUserChangeY, IScale.menuUserChangeWidth, IScale.menuUserChangeHeight);
+				
+		/*
+		// 원하는 레벨로 보내기 레이아웃 
+	    LinearLayout menuGoLevelLayout = (LinearLayout) findViewById(R.id.menuGoLevelLayout);
+	    ISize.setLinearLayout (menuGoLevelLayout, IScale.menuGoLevelLayoutX, IScale.menuGoLevelLayoutY, IScale.menuGoLevelLayoutWidth, IScale.menuGoLevelLayoutHeight);
+	    TextView menuGoLevelText = (TextView) findViewById(R.id.menuGoLevelText);
+		*/
 		
 		// Login input text box		
 		LinearLayout menuLoginTextLayout = (LinearLayout) findViewById(R.id.menuLoginTextLayout);
-		ISize.setLinearLayout (menuLoginTextLayout, IScale.menuLoginTextX, IScale.menuLoginTextY, IScale.menuLoginTextWidth, IScale.menuLoginTextXHeight);
+		ISize.setLinearLayout (menuLoginTextLayout, IScale.menuLoginTextX, IScale.menuLoginTextY, IScale.menuLoginTextWidth, IScale.menuLoginTextHeight);
+		TextView textID = (TextView) findViewById(R.id.textID);
+		TextView textPW = (TextView) findViewById(R.id.textPW);
+		textID.setText ("ID");
+		textPW.setText ("PW");
+		
+		
 		// Play button
 		LinearLayout menuPlayLayout = (LinearLayout) findViewById(R.id.menuPlay);
 		ISize.setLinearLayout (menuPlayLayout, IScale.menuPlayX, IScale.menuPlayY, IScale.menuPlayWidth, IScale.menuPlayHeight);
-		    
-	    // Admin 
+		TextView menuTextLoginPlay = (TextView) findViewById(R.id.textLoginPlay);
+		
+		menuTextLoginPlay.setText ("Login");   
+		ISize.setTextView(menuTextLoginPlay, IScale.menuTextLoginPlayX, IScale.menuTextLoginPlayY, IScale.menuTextLoginPlayWidth, IScale.menuTextLoginPlayHeight);
+		
+		// Admin 
+		/*
 	    LinearLayout menuAdminLoginLayout = (LinearLayout) findViewById(R.id.menuAdminLoginLayout);
 	    ISize.setLinearLayout (menuAdminLoginLayout, IScale.menuAdminLoginX, IScale.menuAdminLoginY, IScale.menuAdminLoginWidth, IScale.menuAdminLoginHeight);
 		TextView adminSubmitText = (TextView) findViewById(R.id.adminSubmitText);
-		
+		*/
 		// Wrong Sign
 		final LinearLayout menuWrongLayout = (LinearLayout) findViewById(R.id.menuWrong);
 		ISize.setLinearLayout (menuWrongLayout, IScale.menuWrongX, IScale.menuWrongY, IScale.menuWrongWidth, IScale.menuWrongHeight);
@@ -116,15 +134,16 @@ public class MenuActivity extends Activity {
 			// Login input text box & Play button: Invisible
 			menuLoginTextLayout.setVisibility(View.INVISIBLE);
 			menuPlayLayout.setVisibility(View.INVISIBLE);
+			menuTextLoginPlay.setVisibility(View.INVISIBLE);
 			
 			// Login name show
 			userNameText.setText (userName);
-			
 		} else {// Not logged-in 
 			// userNameText & User Change Invisible  
 			menuLoggedNameLayout.setVisibility(View.INVISIBLE);
 			menuUserChange.setVisibility(View.INVISIBLE);
 			menuKeepPlayLayout.setVisibility(View.INVISIBLE);
+			//menuGoLevelLayout.setVisibility(View.INVISIBLE);
 		}
 		
 		
@@ -134,14 +153,44 @@ public class MenuActivity extends Activity {
 		// Keep Playing 
 		menuKeepPlayLayout.setOnClickListener(new View.OnClickListener() {	
 			public void onClick(View v) {
-				// Go to the Game Activity
-				//Intent intent = new Intent(MenuActivity.this, GameActivity.class);
-		        //startActivity(intent);
 				finish();
 			}
 		});
+		
+		/*
+		// 레벨 세팅: 원하는 레벨로 보내주마
+		menuGoLevelText.setOnClickListener(new View.OnClickListener() {	
+			public void onClick(View v) {
+
+				EditText menuGoLevelNumber = (EditText) findViewById(R.id.menuGoLevelNumber); // 레벨 입력 박스에서 
+				int level = Integer.parseInt(menuGoLevelNumber.getText().toString()); // 받아온 레벨을 숫자로 바꾸고 
+ 
+				if( level>0 && level<31 ){ //제대로 된 레벨 입력 1~30 
+					// Go to the Game Activity
+					Intent intent = new Intent(MenuActivity.this, GameActivity.class);
+					intent.putExtra("gotoLevel", level);
+			        startActivity(intent);
+
+				} else { //레벨 입력 잘못하면 ~ 
+					alpha.reset();
+					menuWrongLayout.clearAnimation();
+					menuWrongLayout.startAnimation(alpha);
+				    alpha.setAnimationListener(new AnimationListener() {
+				        @Override
+				        public void onAnimationStart(Animation animation) {}
+				        @Override
+				        public void onAnimationRepeat(Animation animation) {}
+				        @Override
+				        public void onAnimationEnd(Animation animation) {
+				        	menuWrongLayout.setVisibility(View.INVISIBLE);
+				        }
+				    });
+				}
+			}
+		});
+		*/
 				
-		// Sign-up / sign-in and Play
+		// Sign-up OR sign-in and Play
 	    menuPlayLayout.setOnClickListener(new View.OnClickListener() {	
 			public void onClick(View v) {
 				
@@ -298,9 +347,7 @@ public class MenuActivity extends Activity {
 					        startActivity(intent);
 					        
 						} else { // Error 
-							
 							System.out.println("Error: " + signUpStatus);
-							
 						}// /if ( signUpStatus == "loggin" )
 
 					} else { // Users file doesn't exist, Sign-up and sign-in
@@ -332,7 +379,7 @@ public class MenuActivity extends Activity {
 						// Go to the Game Activity
 						Intent intent = new Intent(MenuActivity.this, GameActivity.class);
 				        startActivity(intent);
-						
+
 					}
 			        
 				} else if ( userNameSpaceCheck || userPassSpaceCheck ) { // Contains space 
@@ -374,23 +421,16 @@ public class MenuActivity extends Activity {
 				MainActivity.MainActivityObject.finish();//이전 activity 지우고 
 				
 				if ( GameActivity.GameActivityObject != null ) {
-						GameActivity.GameActivityObject.finish();//이전 activity 지우고 
+					GameActivity.GameActivityObject.finish();//이전 activity 지우고 
 				}
-				
-				
+
 				Date date = new Date();
 				SimpleDateFormat sformat = new SimpleDateFormat("yyyyMMdd_HHmmss");
 				String timestamp = sformat.format(date);
-				
  
 				// Add current info from the current file to the users file
 				String loadedCurrent = null;
-				//String loadedUsers = null;
-				
-				
 				loadedCurrent = IResult.getData(_FileCurrent_); //최근상태 저장해 놓은 파일을 불러오고 
-				
-				//JSONObject oData;
 				
 				try {
 					JSONObject oData = new JSONObject(loadedCurrent);
@@ -410,6 +450,7 @@ public class MenuActivity extends Activity {
 			}
 		});
 	    
+		/*
 		// Admin Button Handler
 	    adminSubmitText.setOnClickListener(new View.OnClickListener() {	
 			public void onClick(View v) {
@@ -440,6 +481,7 @@ public class MenuActivity extends Activity {
 				
 			}
 		});
+		*/
 	    
 	}// /initButtons
 		

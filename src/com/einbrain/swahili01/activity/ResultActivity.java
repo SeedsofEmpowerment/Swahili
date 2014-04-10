@@ -17,19 +17,17 @@ import android.app.Activity;
 public class ResultActivity extends Activity {
 	
 	private RelativeLayout CurrentLayout;
-	
 	private int _ScreenWidth_, _ScreenHeight_;
-	
-	private String _FileResult_ = "result.txt";
+	private String _FileResult_ = "result_v1_1.txt";
 	
 	private DisplayManager IDisplay; 
 	private ScaleView IScale;
-	//private SizePositionManager ISize = new SizePositionManager();
 	private ResultHandle IResult = new ResultHandle();
 	
 	////프로그램 시작 ////
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.result_activity);
 	
@@ -46,8 +44,7 @@ public class ResultActivity extends Activity {
 		IScale.ResultActivity(); 
 		
 		initResult();
-		
-		
+
 	} // /onCreate
 	
 	
@@ -70,6 +67,7 @@ public class ResultActivity extends Activity {
 				JSONObject resultDataTmp = new JSONObject(item);
 				resultArr.put(resultDataTmp);
 			}
+			
 			for(int i=1; i<resultArr.length(); i++){ // no need to get the first null 
 				userProperties = resultArr.getJSONObject(i);
 				
@@ -85,7 +83,6 @@ public class ResultActivity extends Activity {
 				viewString = viewString + "("+ userProperties.getString("options") + ")";
 				viewString = viewString + "\n\n";
 			}
-			
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

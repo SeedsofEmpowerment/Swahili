@@ -63,7 +63,23 @@
 	        android:textStyle="bold"
 	        android:singleLine="true" 
 	        android:text="@string/score_default"/>
-	</LinearLayout>		
+	</LinearLayout>	
+	
+    <LinearLayout
+		android:id="@+id/CurrentStatusTextBox"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:visibility="invisible">
+	    <TextView
+	        android:id="@+id/StatusText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:textColor="#323232"
+	        android:textSize="12sp" 
+	        android:textStyle="bold"
+	        android:singleLine="true" 
+	        android:text="@string/score_default"/>
+	</LinearLayout>	
 	
     <LinearLayout
         android:id="@+id/ListeningKid"

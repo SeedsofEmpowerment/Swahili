@@ -1,6 +1,5 @@
 package com.einbrain.swahili01;
 
-import android.util.TypedValue;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -36,7 +35,8 @@ public class SizePositionManager {
 	}// /public void visible
 	
 
-	public void setTextView (TextView tv, int posx, int posy, int width, int height, int size) {
+	//public void setTextView (TextView tv, int posx, int posy, int width, int height, int size) {
+	public void setTextView (TextView tv, int posx, int posy, int width, int height) {
 		
 		// Coordination
 		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tv.getLayoutParams();
@@ -48,7 +48,7 @@ public class SizePositionManager {
 		tv.setHeight(height);
 		
 		// Text Size
-		tv.setTextSize (TypedValue.COMPLEX_UNIT_PX, size);
+		//tv.setTextSize (TypedValue.COMPLEX_UNIT_PX, size);
 		
 	}// /public void visible
 	

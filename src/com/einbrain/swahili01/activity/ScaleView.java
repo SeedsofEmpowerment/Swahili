@@ -13,9 +13,11 @@ public class ScaleView {
 	// MenuActivity
 	public int menuLoggedNameX, menuLoggedNameY, menuLoggedNameWidth, menuLoggedNameHeight, 
 		menuKeepPlayX, menuKeepPlayY, menuKeepPlayWidth, menuKeepPlayHeight,	
-		menuUserChangeX, menuUserChangeY, menuUserChangeWidth, menuUserChangeHeight, 
-		menuLoginTextX, menuLoginTextY, 	menuLoginTextWidth,	menuLoginTextXHeight,
+		menuUserChangeX, menuUserChangeY, menuUserChangeWidth, menuUserChangeHeight,
+		menuGoLevelLayoutX, menuGoLevelLayoutY, menuGoLevelLayoutWidth, menuGoLevelLayoutHeight,
+		menuLoginTextX, menuLoginTextY, menuLoginTextWidth,	menuLoginTextHeight,
 		menuPlayX, menuPlayY, menuPlayWidth, menuPlayHeight,
+		menuTextLoginPlayX, menuTextLoginPlayY, menuTextLoginPlayWidth, menuTextLoginPlayHeight,
 		menuAdminLoginX, menuAdminLoginY, menuAdminLoginWidth, menuAdminLoginHeight,
 		menuWrongX, menuWrongY, menuWrongWidth, menuWrongHeight;
 		
@@ -23,6 +25,7 @@ public class ScaleView {
 	public int gameMenuboxX, gameMenuboxY, gameMenuboxWidth, gameMenuboxHeight, gameMenuWidth, gameMenuHeight, gameMenuX, gameMenuY, gameMenuTextSize,
 		gameLevelTextWidth,	gameLevelTextHeight, gameLevelTextX, gameLevelTextY,
 		gameScoreTextWidth,	gameScoreTextHeight, gameScoreTextX, gameScoreTextY,
+		gameStatusTextWidth, gameStatusTextHeight, gameStatusTextX, gameStatusTextY,
 		gameKidWidth, gameKidHeight, gameKidX, gameKidY, gameClickWidth, gameClickHeight, gameClickX, gameClickY,
 		gameIconCorrectWidth, gameIconCorrectHeight, gameIconCorrectX, gameIconCorrectY,
 		gameIconIncorrectWidth, gameIconIncorrectHeight, gameIconIncorrectX, gameIconIncorrectY,
@@ -31,6 +34,9 @@ public class ScaleView {
 	
 	// ResultActivity
 	public int resultTextSize;
+	
+	// EndActivity
+	public int endPlayX, endPlayY, endPlayWidth, endPlayHeight, endCongratX, endCongratY, endCongratWidth, endCongratHeight, endGoodjobX, endGoodjobY, endGoodjobWidth, endGoodjobHeight;
 	
 	//// Constructor ////
 	public ScaleView (int sw, int sh)  {  
@@ -47,9 +53,9 @@ public class ScaleView {
 	////////////////////////
 	//// public methods ////
 	public void MainActivity (){
-		mainPlayX = mScreenWidth*70/100;
+		mainPlayX = mScreenWidth*67/100;
 		mainPlayY = mScreenHeight*75/100;
-		mainPlayWidth = mScreenWidth*30/100;
+		mainPlayWidth = mScreenWidth*15/100;
 		mainPlayHeight = mainPlayWidth;
 	}
 	
@@ -57,7 +63,7 @@ public class ScaleView {
 		menuLoggedNameX = mScreenWidth*10/100;
 		menuLoggedNameY = mScreenHeight*5/100;
 		menuLoggedNameWidth = mScreenWidth*80/100;
-		menuLoggedNameHeight = mScreenHeight*8/100;
+		menuLoggedNameHeight = mScreenHeight*13/100;
 		
 		menuKeepPlayX = mScreenWidth*28/100;
 		menuKeepPlayY = menuLoggedNameY + menuLoggedNameHeight*130/100;
@@ -69,19 +75,28 @@ public class ScaleView {
 		menuUserChangeWidth = mScreenWidth*20/100;
 		menuUserChangeHeight = menuUserChangeWidth;
 		
-		
 		menuLoginTextX = mScreenWidth*2/100;
 		menuLoginTextY = mScreenHeight*20/100;
 		menuLoginTextWidth = mScreenWidth*65/100;
-		menuLoginTextXHeight = mScreenHeight*15/100;
+		menuLoginTextHeight = mScreenHeight*25/100;
 		
 		menuPlayX = menuLoginTextX + menuLoginTextWidth*105/100;
 		menuPlayY = menuLoginTextY;
 		menuPlayWidth = mScreenWidth*20/100;
 		menuPlayHeight = menuPlayWidth;
 		
-		menuAdminLoginX = mScreenWidth*26/100;
-		menuAdminLoginY = mScreenHeight*70/100;
+		menuTextLoginPlayX = menuPlayX + menuPlayWidth;
+		menuTextLoginPlayY = menuPlayY;
+		menuTextLoginPlayWidth = mScreenWidth*6/100;
+		menuTextLoginPlayHeight = menuLoggedNameHeight;
+				
+		menuGoLevelLayoutX = mScreenWidth*26/100;
+		menuGoLevelLayoutY = menuKeepPlayY + menuKeepPlayHeight + mScreenHeight*15/100;;
+		menuGoLevelLayoutWidth = mScreenWidth*50/100;
+		menuGoLevelLayoutHeight = menuLoggedNameHeight;
+		
+		menuAdminLoginX = menuGoLevelLayoutX;
+		menuAdminLoginY = mScreenHeight*85/100;
 		menuAdminLoginWidth = mScreenWidth*70/100;
 		menuAdminLoginHeight = menuLoggedNameHeight;
 		
@@ -89,8 +104,6 @@ public class ScaleView {
 		menuWrongY = mScreenHeight*45/100;;
 		menuWrongWidth = mScreenWidth*20/100;
 		menuWrongHeight = menuWrongWidth;
-		
-		
 		
 	} // /public void MenuActivity
 
@@ -109,28 +122,33 @@ public class ScaleView {
 		
 		gameLevelTextWidth = mScreenWidth*20/100;
 		gameLevelTextHeight = mScreenHeight*5/100;
-		gameLevelTextX = mScreenWidth*45/100;
+		gameLevelTextX = mScreenWidth*40/100;
 		gameLevelTextY = mScreenHeight*25/1000;
 		
 		gameScoreTextWidth = mScreenWidth*25/100;
 		gameScoreTextHeight = mScreenHeight*5/100;
-		gameScoreTextX = mScreenWidth*70/100;
+		gameScoreTextX = mScreenWidth*57/100;
 		gameScoreTextY = mScreenHeight*25/1000;
-				
-		gameKidWidth = mScreenWidth*88/100;
-		gameKidHeight = mScreenHeight*38/100;
+		
+		gameStatusTextWidth = mScreenWidth*25/100;
+		gameStatusTextHeight = mScreenHeight*5/100;
+		gameStatusTextX = mScreenWidth*80/100;
+		gameStatusTextY = mScreenHeight*25/1000;
+						
+		gameKidWidth = mScreenWidth*64/100;
+		gameKidHeight = mScreenHeight*55/100;
 		gameKidX = (mScreenWidth-gameKidWidth)/2; //센터링
 		gameKidY = mScreenHeight*12/100;
 		
-		gameClickWidth = mScreenWidth*25/100;
+		gameClickWidth = mScreenWidth*15/100;
 		gameClickHeight = gameClickWidth;
-		gameClickX = (mScreenWidth-gameClickWidth)/2; //센터링 
+		gameClickX = (mScreenWidth-gameClickWidth)/2 + gameKidWidth/2; //센터링 
 		gameClickY = mScreenHeight*42/100;
 		
 		gameIconCorrectWidth = mScreenWidth*30/100;
 		gameIconCorrectHeight = gameIconCorrectWidth;
 		gameIconCorrectX = (mScreenWidth-gameIconCorrectWidth)/2; //센터링
-		gameIconCorrectY = mScreenHeight*50/100;
+		gameIconCorrectY = mScreenHeight*30/100;
 		
 		gameIconIncorrectWidth = gameIconCorrectWidth;
 		gameIconIncorrectHeight = gameIconCorrectHeight;
@@ -139,7 +157,7 @@ public class ScaleView {
 			    
 		gameIconSmallWidth = mScreenWidth*17/100;
 		gameIconSmallHeight = mScreenWidth*17/100;
-		gameIconSmallTextSize = mScreenHeight*5/100;
+		gameIconSmallTextSize = mScreenHeight*12/100; //음운 아이콘 텍스트 사이즈 
 		
 		gameIconSmallY = mScreenHeight*70/100;
 		
@@ -152,8 +170,25 @@ public class ScaleView {
 	
 	public void ResultActivity (){
 		resultTextSize = mScreenHeight*3/100;		
+	} // /public void ResultActivity
+	
+	
+	public void EndActivity (){
+		endPlayX = mScreenWidth*67/100;
+		endPlayY = mScreenHeight*75/100;
+		endPlayWidth = mScreenWidth*15/100;
+		endPlayHeight = endPlayWidth;
 		
-	} // /public void MenuActivity
+		endGoodjobX = mScreenWidth*20/100;;
+		endGoodjobY = mScreenHeight*5/100;
+		endGoodjobWidth = mScreenWidth*40/100;
+		endGoodjobHeight = mScreenHeight*20/100;
+		
+		endCongratX = mScreenWidth*40/100;
+		endCongratY = mScreenHeight*50/100;
+		endCongratWidth = mScreenWidth*40/100;
+		endCongratHeight = mScreenHeight*20/100;
+	} // /public void EndActivity
 
 	
 	

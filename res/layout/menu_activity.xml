@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".MenuActivity" >
     
-     <LinearLayout
+    <!-- 1. 로그인 되어 있을 경우 -->
+    <!-- 로그인 된 이름 -->
+    <LinearLayout
         android:id="@+id/menuLoggedNameLayout"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content" 
@@ -30,6 +32,7 @@
 	        android:background="@drawable/menu_username"/>
     </LinearLayout>
      
+    <!-- 계속 플레이 하자 -->
     <LinearLayout
         android:id="@+id/menuKeepPlay"
         android:layout_width="wrap_content"
@@ -43,6 +46,7 @@
         android:orientation="vertical" >
     </LinearLayout>
     
+    <!-- 유져 바꾸기 -->
     <LinearLayout
         android:id="@+id/menuUserChange"
         android:layout_width="wrap_content"
@@ -55,8 +59,43 @@
         android:background="@drawable/menu_user_change"
         android:contentDescription="@string/desc">
 	</LinearLayout>
+	
+    <!-- 레벨 세팅: 원하는 레벨로 보내주마 -->
+    <!--     
+    <LinearLayout
+        android:id="@+id/menuGoLevelLayout"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" 
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="380dp"
+        android:orientation="horizontal"
+        android:contentDescription="@string/desc">
+	    <EditText
+	        android:id="@+id/menuGoLevelNumber"
+	        android:layout_width="0dp"
+			android:layout_height="fill_parent"
+			android:layout_weight="0.5"
+	        android:ems="10"
+	        android:inputType="number"
+	        android:visibility="visible" 
+	        android:imeOptions="actionDone">
+	    </EditText>
+	    <TextView
+	        android:id="@+id/menuGoLevelText"
+	        style="@style/Menu_Button_Text"
+	        android:layout_width="0dp"
+			android:layout_height="fill_parent"
+			android:layout_weight="0.5"
+	        android:background="@drawable/menu"
+	        android:text="@string/level"
+	        android:visibility="visible" />
+   	</LinearLayout>
+   	 -->
     
-
+	<!-- 2. 로그인 안 되어 있을 경우 -->
+    <!-- 로그인 메뉴 -->
     <LinearLayout
         android:id="@+id/menuLoginTextLayout"
         android:layout_height="wrap_content"
@@ -88,6 +127,13 @@
 		        android:inputType="text">
 	      		<requestFocus />
 	    	</EditText>
+			<!-- Text: ID -->	    	
+	    	<TextView
+	        	android:id="@+id/textID"
+	        	style="@style/Menu_Button_Text"
+	        	android:layout_width="wrap_content"
+		    	android:layout_height="fill_parent"
+	        	android:background="@drawable/menu_username"/>
 		</LinearLayout>
 		    
 	    <LinearLayout
@@ -108,11 +154,20 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="fill_parent"
 		        android:ems="10"
-		        android:inputType="text">
+		        android:inputType="text"
+		        android:imeOptions="actionDone">
 	    	</EditText>
+	    	<!-- Text: PW -->	    	
+	    	<TextView
+	        	android:id="@+id/textPW"
+	        	style="@style/Menu_Button_Text"
+	        	android:layout_width="wrap_content"
+		    	android:layout_height="fill_parent"
+	        	android:background="@drawable/menu_username"/>
 		</LinearLayout>
     </LinearLayout>  
     
+    <!-- 로그인해서 플레이 하자 메뉴 -->
     <LinearLayout
         android:id="@+id/menuPlay"
         android:layout_width="wrap_content"
@@ -124,9 +179,19 @@
         android:background="@drawable/menu_play"
         android:contentDescription="@string/desc"
         android:orientation="vertical" >
+	    
     </LinearLayout>
     
+    <!-- Text: Login and Play -->	    	
+	<TextView
+	   	android:id="@+id/textLoginPlay"
+	   	style="@style/Menu_Button_Text"
+	   	android:layout_width="wrap_content"
+	  	android:layout_height="wrap_content"
+	   	android:background="@drawable/menu_username"/>
+    
     <!-- Admin Menu -->    
+    <!-- 
     <LinearLayout
         android:id="@+id/menuAdminLoginLayout"
         android:layout_height="wrap_content"
@@ -144,7 +209,8 @@
 			android:layout_weight="0.7"
 	        android:ems="10"
 	        android:inputType="text"
-	        android:visibility="visible" >
+	        android:visibility="visible" 
+	        android:imeOptions="actionDone">
 	    </EditText>
 	    <TextView
 	        android:id="@+id/adminSubmitText"
@@ -156,9 +222,9 @@
 	        android:text="@string/admin"
 	        android:visibility="visible" />
    	</LinearLayout>
+   	 -->
    	
     <!-- Wrong Sign! -->
-
     <LinearLayout
         android:id="@+id/menuWrong"
         android:layout_width="wrap_content"
@@ -171,7 +237,6 @@
         android:contentDescription="@string/desc"
         android:orientation="vertical"
         android:visibility="invisible" >
-
     </LinearLayout>
    
 </RelativeLayout>

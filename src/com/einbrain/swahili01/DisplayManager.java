@@ -21,10 +21,9 @@ public class DisplayManager {
 		
 		DisplayMetrics metrics = new DisplayMetrics();
 		metrics = mContext.getResources().getDisplayMetrics();
-			
-		//getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		
-		//// Display 기본 320 * 480 으로 맞춰라 ////  
+		/*
+		//// Portrait: Display 기본 320 * 480 으로 맞춰라 ////  
 		int deviceWidth = metrics.widthPixels;
 		int deviceHeight = metrics.heightPixels;
 				
@@ -33,9 +32,21 @@ public class DisplayManager {
 			displayPixel[1] = displayPixel[0]*480/320;
 		} else { //옆으로 넙쭉이 
 			displayPixel[1] = deviceHeight;
-			displayPixel[0] = displayPixel[0]*320/480;
+			displayPixel[0] = displayPixel[1]*320/480;
 		}
-
+		*/
+		//// Landscape: Display 기본 480 * 320 으로 맞춰라 ////  
+			int deviceWidth = metrics.widthPixels;
+			int deviceHeight = metrics.heightPixels;
+			
+			if( deviceWidth*320/480 <= deviceHeight) { // 위로 길쭉이 
+				displayPixel[0] = deviceWidth;
+				displayPixel[1] = displayPixel[0]*320/480;
+			} else { //옆으로 넙쭉이 
+				displayPixel[1] = deviceHeight;
+				displayPixel[0] = displayPixel[1]*480/320;
+			}
+			
 		return displayPixel;
 	}
 	
